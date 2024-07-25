@@ -1,5 +1,7 @@
 package com.felipegeroldi.gestao_vagas.modules.candidate.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -17,4 +19,6 @@ public class AuthCandidateResponseDTO {
 
     @JsonProperty("expires_in")
     private Long expiresIn;
+
+    private List<String> roles;
 }

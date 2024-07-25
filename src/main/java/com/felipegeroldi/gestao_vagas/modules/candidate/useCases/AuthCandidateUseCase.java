@@ -3,6 +3,7 @@ package com.felipegeroldi.gestao_vagas.modules.candidate.useCases;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.naming.AuthenticationException;
 
@@ -43,16 +44,18 @@ public class AuthCandidateUseCase {
 
         var algorithm = Algorithm.HMAC256(secretKey);
         var expiresIn = Instant.now().plus(Duration.ofMinutes(30));
+        List<String> roles = Arrays.asList("CANDIDATE");
         var token = JWT.create()
             .withIssuer("test-vagas")
             .withExpiresAt(expiresIn)
             .withSubject(candidate.getId().toString())
-            .withClaim("roles", Arrays.asList("CANDIDATE"))
+            .withClaim("roles", roles)
             .sign(algorithm);
 
         var response = AuthCandidateResponseDTO.builder()
             .accessToken(token)
             .expiresIn(expiresIn.toEpochMilli())
+            .roles(roles)
             .build();
 
         return response;

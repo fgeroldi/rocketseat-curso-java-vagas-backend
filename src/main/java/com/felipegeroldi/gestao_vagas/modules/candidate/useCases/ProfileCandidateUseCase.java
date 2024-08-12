@@ -13,6 +13,10 @@ import com.felipegeroldi.gestao_vagas.modules.candidate.repository.CandidateRepo
 public class ProfileCandidateUseCase {
     private CandidateRepository candidateRepository;
     
+    public ProfileCandidateUseCase(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
+    }
+
     public ProfileCandidateResponseDTO execute(UUID idCandidate) {
         CandidateEntity candidate = candidateRepository.findById(idCandidate)
             .orElseThrow(() -> new UserNotFoundException());
